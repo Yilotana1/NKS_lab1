@@ -66,7 +66,9 @@ public class ExecutorImpl implements Executor {
     }
 
 
-
+    // Отримати ймовірність за формулаю P(ti - 1) > guama
+    // Map<Double, Double> probabilities - структура для зберігання ймовірностей, де key - інтервал ймовірності,
+    // value - значення ймовірності від о до 1.
     private Map.Entry<Double, Double> getPti_1(Map<Double, Double> probabilities, double guama) {
 
         return probabilities
@@ -76,6 +78,10 @@ public class ExecutorImpl implements Executor {
                 .findFirst().get();
     }
 
+
+    // Отримати ймовірність за формулаю P(ti) < guama
+    // Map<Double, Double> probabilities - структура для зберігання ймовірностей, де key - інтервал ймовірності,
+    // value - значення ймовірності від о до 1.
     private Map.Entry<Double, Double> getPti(Map<Double, Double> probabilities, double guama) {
         return probabilities
                 .entrySet()
@@ -84,6 +90,9 @@ public class ExecutorImpl implements Executor {
                 .findFirst().get();
     }
 
+    // Отримати ймовірність безвідмовної роботи для кожного інтервалу
+    // int[] timeArray - вибірка наробітків до відмвови
+    // int N - кількість інтервалів
     private Map<Double, Double> getFailLessProbabilities(int[] timeArray, int N) {
         double[][] intervals = getIntervals(timeArray, N);
         Map<Double, Double> probabilities = new HashMap<>();
@@ -95,7 +104,9 @@ public class ExecutorImpl implements Executor {
     }
 
 
-
+    // Отримати масив щільностей розподілу на інтервалах
+    // int[] timeArray - вибірка наробітків до відмвови
+    // int N - кількість інтервалів
     private double[] getDistributionDensities(int[] timeArray, int N) {
         double h = getH(timeArray, N);
         int[] intervalValuesNumber = getIntervalValuesNumber(timeArray, N);
@@ -109,6 +120,10 @@ public class ExecutorImpl implements Executor {
 
     }
 
+
+    // Масив кількісті значень вибірки, що потрапили в кожний інтервал
+    // int[] timeArray - вибірка наробітків до відмвови
+    // int N - кількість інтервалів
     private int[] getIntervalValuesNumber(int[] timeArray, int N) {
         double[][] intervals = getIntervals(timeArray, N);
         int[] intervalValuesNumber = new int[N];
@@ -127,11 +142,18 @@ public class ExecutorImpl implements Executor {
     }
 
 
+    // Отримати довжнину інтервалу
+    // int[] timeArray - вибірка наробітків до відмвови
+    // int N - кількість інтервалів
     private double getH(int[] timeArray, int N) {
         int[] sortedArray = Arrays.stream(timeArray).sorted().toArray();
         return (double) (sortedArray[timeArray.length - 1]) / N;
     }
 
+
+    // Отримати масив інтервалів, де intervals[i][0] - ліва межа, intervals[i][1] - права межа
+    // int[] timeArray - вибірка наробітків до відмвови
+    // int N - кількість інтервалів
     private double[][] getIntervals(int[] timeArray, int N) {
         double[][] intervals = new double[N][2];
         double length = getH(timeArray, N);
