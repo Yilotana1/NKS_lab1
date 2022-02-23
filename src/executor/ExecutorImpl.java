@@ -10,14 +10,14 @@ public class ExecutorImpl implements Executor {
     private final int N;
     private final double[][] intervals;
     private final double[] distributionDensities;
-    private final double guama;
+    private final double γ;
     private final double h;
 
 
     public ExecutorImpl(int[] timeArray, int N, double guama) {
         this.timeArray = timeArray;
         this.N = N;
-        this.guama = guama;
+        this.γ = guama;
         this.h = getH(timeArray, N);
         this.intervals = getIntervals(timeArray, N);
         this.distributionDensities = getDistributionDensities(timeArray, N);
@@ -35,10 +35,10 @@ public class ExecutorImpl implements Executor {
         double h = getH(timeArray, N);
         Map<Double, Double> probabilities = getFailLessProbabilities(timeArray, N);
 
-        Map.Entry<Double, Double> pti = getPti(probabilities, guama);
-        Map.Entry<Double, Double> pti_1 = getPti_1(probabilities, guama);
+        Map.Entry<Double, Double> pti = getPti(probabilities, γ);
+        Map.Entry<Double, Double> pti_1 = getPti_1(probabilities, γ);
 
-        double d = (pti.getValue() - guama) / (pti.getValue() - pti_1.getValue());
+        double d = (pti.getValue() - γ) / (pti.getValue() - pti_1.getValue());
 
         return round(pti.getKey() - h * d, 3);
     }
@@ -66,7 +66,7 @@ public class ExecutorImpl implements Executor {
     }
 
 
-    // Отримати ймовірність за формулаю P(ti - 1) > guama
+    // Отримати ймовірність за формулаю P(ti - 1) > γ
     // Map<Double, Double> probabilities - структура для зберігання ймовірностей, де key - інтервал ймовірності,
     // value - значення ймовірності від о до 1.
     private Map.Entry<Double, Double> getPti_1(Map<Double, Double> probabilities, double guama) {
@@ -79,7 +79,7 @@ public class ExecutorImpl implements Executor {
     }
 
 
-    // Отримати ймовірність за формулаю P(ti) < guama
+    // Отримати ймовірність за формулаю P(ti) < γ
     // Map<Double, Double> probabilities - структура для зберігання ймовірностей, де key - інтервал ймовірності,
     // value - значення ймовірності від о до 1.
     private Map.Entry<Double, Double> getPti(Map<Double, Double> probabilities, double guama) {

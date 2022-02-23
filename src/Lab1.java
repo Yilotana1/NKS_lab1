@@ -23,20 +23,20 @@ public class Lab1 {
 
     private final static int INTENSITY_TIME = 342;
 
-    private final static double GUAMA = 0.91;
+    private final static double γ = 0.91;
 
 
 
     public static void main(String[] args) {
 
-        Executor executor = new ExecutorImpl(timeArray, N, GUAMA);
+        Executor executor = new ExecutorImpl(timeArray, N, γ);
 
         System.out.println("Середній час роботи без відмов = " + executor.getAverageFailLessTime());
 
         System.out.println("Ймовірність безвідмовної роботи за час " + FAIL_LESS_TIME
                 + " = " + executor.getFailLessWorkProbability(FAIL_LESS_TIME));
 
-        System.out.println("T = " + executor.getT());
+        System.out.println("Tγ = " + executor.getT());
 
         System.out.println("Інтенсивність на " + INTENSITY_TIME + " годин = " + executor.getIntensity(INTENSITY_TIME));
     }
