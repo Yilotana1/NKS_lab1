@@ -8,5 +8,5 @@ public interface Executor {
 
     double getIntensity(double time);
 
-    double getFailLessTimeProbability(double time);
+    double getFailLessWorkProbability(double time);
 }

@@ -33,7 +33,7 @@ public class Lab1 {
 
         System.out.println("Середній час роботи без відмов = " + executor.getAverageFailLessTime());
 
-        System.out.println("Ймовірність безвідмовної роботи за час " + FAIL_LESS_TIME + " = " + executor.getFailLessTimeProbability(FAIL_LESS_TIME));
+        System.out.println("Ймовірність безвідмовної роботи за час " + FAIL_LESS_TIME + " = " + executor.getFailLessWorkProbability(FAIL_LESS_TIME));
 
         System.out.println("T = " + executor.getT());
 

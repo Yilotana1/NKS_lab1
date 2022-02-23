@@ -46,13 +46,13 @@ public class ExecutorImpl implements Executor {
     @Override
     public double getIntensity(double time) {
         double f = distributionDensities[(int) (time / h)];
-        double probability = getFailLessTimeProbability(time);
+        double probability = getFailLessWorkProbability(time);
         return round(f / probability, 6);
     }
 
 
     @Override
-    public double getFailLessTimeProbability(double time) {
+    public double getFailLessWorkProbability(double time) {
         double probability = 1;
 
         for (int i = 0; i < N; i++) {
@@ -88,9 +88,9 @@ public class ExecutorImpl implements Executor {
         double[][] intervals = getIntervals(timeArray, N);
         Map<Double, Double> probabilities = new HashMap<>();
         for (int i = 0; i < N; i++) {
-            probabilities.put(intervals[i][1], getFailLessTimeProbability(intervals[i][1]));
+            probabilities.put(intervals[i][1], getFailLessWorkProbability(intervals[i][1]));
         }
-        probabilities.put(0.0, getFailLessTimeProbability(0));
+        probabilities.put(0.0, getFailLessWorkProbability(0));
         return probabilities;
     }
 
