@@ -40,14 +40,14 @@ public class ExecutorImpl implements Executor {
 
         double d = (pti.getValue() - guama) / (pti.getValue() - pti_1.getValue());
 
-        return limitedDouble(pti.getKey() - h * d, 3);
+        return round(pti.getKey() - h * d, 3);
     }
 
     @Override
     public double getIntensity(double time) {
         double f = distributionDensities[(int) (time / h)];
         double probability = getFailLessTimeProbability(time);
-        return limitedDouble(f / probability, 6);
+        return round(f / probability, 6);
     }
 
 
@@ -62,7 +62,7 @@ public class ExecutorImpl implements Executor {
             }
             probability -= distributionDensities[i] * h;
         }
-        return limitedDouble(probability, 5);
+        return round(probability, 5);
     }
 
 
@@ -102,7 +102,7 @@ public class ExecutorImpl implements Executor {
 
         double[] densities = new double[N];
         for (int i = 0; i < N; i++) {
-            densities[i] = limitedDouble(intervalValuesNumber[i] / (N * h * 10), 6);
+            densities[i] = round(intervalValuesNumber[i] / (N * h * 10), 6);
         }
 
         return densities;
@@ -139,12 +139,12 @@ public class ExecutorImpl implements Executor {
         for (int i = 0; i < N; i++) {
             if (i == 0) {
                 intervals[i][0] = 0;
-                intervals[i][1] = limitedDouble(length, 1);
+                intervals[i][1] = round(length, 1);
                 continue;
             }
 
-            intervals[i][0] = limitedDouble(intervals[i - 1][1], 1);
-            intervals[i][1] = limitedDouble(intervals[i][0] + length, 1);
+            intervals[i][0] = round(intervals[i - 1][1], 1);
+            intervals[i][1] = round(intervals[i][0] + length, 1);
         }
         return intervals;
     }
